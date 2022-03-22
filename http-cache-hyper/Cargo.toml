@@ -1,0 +1,41 @@
+[package]
+name = "http-cache-hyper"
+version = "0.1.0"
+description = "http-cache middleware implementation for hyper"
+authors = ["Christian Haynes <06chaynes@gmail.com>", "Kat Marchán <kzm@zkat.tech>"]
+repository = "https://github.com/06chaynes/http-cache.git"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["cache", "http", "middleware", "hyper"]
+categories = [
+    "caching",
+    "web-programming::http-client"
+]
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.53"
+async-trait = "0.1.52"
+http = "0.2.6"
+http-cache-semantics = "1.0.0"
+hyper = { version = "0.14.16", features = ["client"] }
+serde = { version = "1.0.136", features = ["derive"] }
+tokio = "1.16.1"
+url = { version = "2.2.2", features = ["serde"] }
+
+[dependencies.http-cache]
+path = "../http-cache"
+version = "0.6.0"
+
+[dev-dependencies]
+hyper = { version = "0.14.16", features = ["client", "http1", "tcp"] }
+tokio = { version = "1.16.1", features = ["io-std", "io-util", "macros"] }
+
+[features]
+default = ["manager-cacache"]
+manager-cacache = ["http-cache/manager-cacache"]
+manager-moka = ["http-cache/manager-moka"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
